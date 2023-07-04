@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cf_analytics/shared/shared_pref.dart';
 import 'package:flutter/cupertino.dart';
 
 class ContestProvider extends ChangeNotifier {
   bool _innotificationon = false;
-  ContestProvider(String device_id, int cont_id) {
-    initialvalue(device_id, cont_id);
+  ContestProvider(int cont_id) {
+    initialvalue(cont_id);
   }
   bool get isnotificationon => _innotificationon;
 
@@ -13,13 +13,9 @@ class ContestProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void initialvalue(String device_id, int cont_id) async {
-    final userDocRef = await FirebaseFirestore.instance
-        .collection(device_id)
-        .doc('$cont_id')
-        .get();
-    _innotificationon = userDocRef.exists;
-
+  void initialvalue(int cont_id) async {
+    List<String> allNotifications = Favourite.getAllNotifications();
+    _innotificationon = allNotifications.contains(cont_id.toString());
     notifyListeners();
   }
 }

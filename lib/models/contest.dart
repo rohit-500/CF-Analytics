@@ -1,6 +1,7 @@
 import 'package:cf_analytics/provider/contest_provider.dart';
 import 'package:cf_analytics/services/notification.dart';
 import 'package:cf_analytics/shared/device_info.dart';
+import 'package:cf_analytics/shared/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,6 @@ class ContestTile extends StatefulWidget {
 }
 
 class _ContestTileState extends State<ContestTile> {
-  String device_id = DeviceInfo.device_id!;
   bool isnotificationon = false;
   String formatDuration(Duration duration) {
     String hours = duration.inHours.toString().padLeft(0, '2');
@@ -28,7 +28,7 @@ class _ContestTileState extends State<ContestTile> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (_) => ContestProvider(device_id, widget.contests['id']),
+        create: (_) => ContestProvider(widget.contests['id']),
         child: Consumer<ContestProvider>(
           builder: ((context, data, child) {
             String val = formatDuration(
@@ -48,6 +48,7 @@ class _ContestTileState extends State<ContestTile> {
             }
             String start_time = "-";
             String start_date = "-";
+         
             if (widget.contests['startTimeSeconds'] != null) {
               var date = DateTime.fromMillisecondsSinceEpoch(
                   widget.contests['startTimeSeconds'] * 1000);
@@ -80,20 +81,24 @@ class _ContestTileState extends State<ContestTile> {
                                       '${widget.contests['name']} ',
                                       widget.contests['startTimeSeconds']);
                                 }
-                                final colref = FirebaseFirestore.instance
-                                    .collection(device_id)
-                                    .doc('${widget.contests['id']}');
-                                colref.set({
-                                  'contest': widget.contests['name'],
-                                  'date': start_date,
-                                });
+                                int id = widget.contests['id'] ?? -1;
+                                Favourite.setNotification(id);
+                                // final colref = FirebaseFirestore.instance
+                                //     .collection(device_id)
+                                //     .doc('${widget.contests['id']}');
+                                // colref.set({
+                                //   'contest': widget.contests['name'],
+                                //   'date': start_date,
+                                // });
                               } else {
-                                FirebaseFirestore.instance
-                                    .collection(device_id)
-                                    .doc('${widget.contests['id']}')
-                                    .delete();
-                                NotificationService()
-                                    .cancelNotification(widget.contests['id']);
+                                int id = widget.contests['id'] ?? -1;
+                                Favourite.removeNotification(id);
+                                // FirebaseFirestore.instance
+                                //     .collection(device_id)
+                                //     .doc('${widget.contests['id']}')
+                                //     .delete();
+                                // NotificationService()
+                                //     .cancelNotification(widget.contests['id']);
                               }
                               data.setnotify();
                             },

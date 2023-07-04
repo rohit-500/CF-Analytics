@@ -71,8 +71,8 @@ class _UpContestsState extends State<UpContests> {
                 key: _refreshIndicatorKey,
                 onRefresh: _refreshPhotos,
                 child: Container(
-                    child: SingleChildScrollView(
-                  child: Column(
+                    child: ListView(children: [
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -136,7 +136,7 @@ class _UpContestsState extends State<UpContests> {
                       // ),
                     ],
                   ),
-                ))));
+                ]))));
       }),
     );
   }
