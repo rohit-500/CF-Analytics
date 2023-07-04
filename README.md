@@ -1,16 +1,9 @@
-# cf_analytics
+CodeForces Analytics APK Link
 
-A new Flutter project.
+https://docs.google.com/uc?export=download&id=1lTL-wg_cFuZZW5NpzJShUS218dulhWem
 
-## Getting Started
+App Demo
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+https://user-images.githubusercontent.com/95355170/196401627-d8842ee5-7b82-4221-849a-02009653cd10.mp4
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
